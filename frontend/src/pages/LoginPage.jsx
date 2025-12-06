@@ -69,7 +69,7 @@ function LoginPage() {
                         
                     </div>
                     <div className="w-full mt-6 relative">
-                        <Link className={`w-full flex items-center justify-center py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed'} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''} onClick={handleLogin} to="/app">Przejdź do aplikacji</Link>
+                        <Link className={`w-full flex items-center justify-center py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed '} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''} onClick={handleLogin} to="/BezpieczneZarzadzanieBudzetem">Przejdź do aplikacji</Link>
                         <img src={arrowRight} alt="arrowRight" className="w-6 h-6 absolute right-28 top-4"/>
                     </div>
 

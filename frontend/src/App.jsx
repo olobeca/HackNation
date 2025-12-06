@@ -5,7 +5,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import UserContext from './context/UserContext';
 import {useState} from 'react'
-
+import BezpieczneZarzadzanieBudzetem from './pages/BezpieczneZarzadzanieBudzetem';
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/BezpieczneZarzadzanieBudzetem" element={<BezpieczneZarzadzanieBudzetem />} />
         </Routes>
       </UserContext.Provider>
     </>
