@@ -1,5 +1,4 @@
-
-public class Finance_data
+public class FinanceData
 {
     public string Id { get; set; }
     public string CzescBudzetowa { get; set; }
