@@ -19,7 +19,7 @@ services:
       interval: 3s
       retries: 5
 
-  chatademia:
+  bzb-server:
     build:
       context: .
       dockerfile: Dockerfile
