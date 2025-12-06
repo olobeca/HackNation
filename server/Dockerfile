@@ -39,4 +39,4 @@ COPY --from=publish /app/publish .
 # Set ASP.NET Core environment
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-ENTRYPOINT ["dotnet", "BezpiecznyZgranyBudzet.dll"]
+ENTRYPOINT ["dotnet", "bzb.dll"]
