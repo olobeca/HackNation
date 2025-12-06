@@ -2,6 +2,7 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// AI generated start:
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -12,6 +13,7 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod();
         });
 });
+// AI generated end
 
 // Add services to the container.
 
