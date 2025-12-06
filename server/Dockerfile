@@ -30,13 +30,13 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Environment variables for PostgreSQL
-# ENV DB_HOST=postgres
-# ENV DB_PORT=5432
-# ENV DB_USER=myuser
-# ENV DB_PASSWORD=mypassword
-# ENV DB_NAME=mydb
+ENV DB_HOST: mongodb
+ENV DB_PORT: 27017
+ENV DB_USER: ${DB_USER}
+ENV DB_PASSWORD: ${DB_PASSWORD}
+ENV DB_NAME: ${DB_NAME}
 
 # Set ASP.NET Core environment
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-ENTRYPOINT ["dotnet", "bzb.dll"]
+ENTRYPOINT ["dotnet", "BezpiecznyZgranyBudzet.dll"]
