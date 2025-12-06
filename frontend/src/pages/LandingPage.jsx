@@ -1,4 +1,10 @@
 import dot from '../assets/dot.svg';
+import docs from '../assets/docsRed.svg';
+import wrongRed from '../assets/wrongRed.svg';
+import warningRed from '../assets/warningRed.svg';
+import dataGreen from '../assets/dataGreen.svg';
+import usersGreen from '../assets/usersGreen.svg';
+import checkboxGreen from '../assets/checkboxGreen.svg';
 
 function LandingPage() {
     return (
@@ -45,16 +51,82 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
-            <div className="bg-gray-200 text-white py-24 px-8 flex flex-col gap-6 items-center justify-center">
+            <div className="bg-gray-200 text-white py-24 px-8 flex flex-col gap-4 items-center justify-center">
                 <h1 className="text-4xl font-normal text-gray-800">Od Chaosu do Kontroli</h1>
-                <h1 className="text-lg font-normal text-gray-500 mb-3">Przejście z monolitycznych plików Excel do nowoczesnego centralnego repozytorium</h1>
+                <h1 className="text-lg font-normal text-gray-500 mb-5">Przejście z monolitycznych plików Excel do nowoczesnego centralnego repozytorium</h1>
                 
                 <div className="w-full flex gap-4">
-                    <div className="bg-white rounded-lg p-9 flex-1 flex flex-col gap-4 border border-red-500 text-left shadow-lg">
-                        <h1 className="text-black text-2xl font-light">Monolityczny Plik Excel</h1>
+                    <div className="bg-white rounded-lg p-9 flex-1 flex flex-col gap-6 border border-red-400 text-left shadow-lg">
+                        <div className="flex gap-4 items-center">
+                            <div className="rounded-lg bg-red-200 w-12 h-12 flex items-center justify-center">
+                                <img src={docs} alt="docs" className="w-9 h-9"/>
+                            </div>
+                            <h1 className="text-black text-2xl font-normal">Monolityczny Plik Excel</h1>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={wrongRed} alt="wrongRed" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Chaos w Danych</h1>
+                                    <h1 className="text-gray-500 text-sm">Wielu użytkowników edytuje ten sam plik jednocześnie, powodując konflikty i nadpisywanie zmian</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={warningRed} alt="warningRed" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Utrata Formuł</h1>
+                                    <h1 className="text-gray-500 text-sm">Krytyczne formuły są przypadkowo usuwane lub modyfikowane bez możliwości odzyskania</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={wrongRed} alt="wrongRed" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Błędy w Walidacji</h1>
+                                    <h1 className="text-gray-500 text-sm">Brak centralnej kontroli prowadzi do niespójności z klasyfikacją budżetową</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={warningRed} alt="warningRed" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Ręczna Aktualizacja Dokumentów</h1>
+                                    <h1 className="text-gray-500 text-sm">Czasochłonne przenoszenie danych do dokumentów Word i innych systemów</h1>
+                                </div>
+                        </div>
                     </div>
-                    <div className="bg-white rounded-lg p-9 flex-1 flex flex-col gap-4 border border-green-500 text-left shadow-lg">
-
+                    <div className="bg-white rounded-lg p-9 flex-1 flex flex-col gap-6 border border-green-400 text-left shadow-lg">
+                        <div className="flex gap-4 items-center">
+                            <div className="rounded-lg bg-green-200 w-12 h-12 flex items-center justify-center">
+                                <img src={dataGreen} alt="docs" className="w-9 h-9"/>
+                            </div>
+                            <h1 className="text-black text-2xl font-normal">Monolityczny Plik Excel</h1>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={checkboxGreen} alt="checkboxGreen" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Automatyczne Scalanie</h1>
+                                    <h1 className="text-gray-500 text-sm">System inteligentnie łączy zmiany z różnych źródeł, eliminując konflikty wersji</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={usersGreen} alt="usersGreen" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Równoległa Edycja</h1>
+                                    <h1 className="text-gray-500 text-sm">Wielu użytkowników pracuje jednocześnie w swoich zakresach kompetencji bez zakłóceń</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={checkboxGreen} alt="checkboxGreen" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Chronione Formuły</h1>
+                                    <h1 className="text-gray-500 text-sm">Kluczowe mechanizmy obliczeniowe są zabezpieczone przed przypadkowymi modyfikacjami</h1>
+                                </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                                <img src={checkboxGreen} alt="checkboxGreen" className="w-6 h-6"/>
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-gray-800 text-md font-normal">Automatyczna Integracja</h1>
+                                    <h1 className="text-gray-500 text-sm">Bezpośrednie generowanie dokumentów urzędowych bez ręcznej interwencji</h1>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
