@@ -5,6 +5,7 @@ import warningRed from '../assets/warningRed.svg';
 import dataGreen from '../assets/dataGreen.svg';
 import usersGreen from '../assets/usersGreen.svg';
 import checkboxGreen from '../assets/checkboxGreen.svg';
+import Footer from '../components/Footer';
 
 function LandingPage() {
     return (
@@ -51,10 +52,12 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
-            <div className="bg-gray-200 text-white py-24 px-8 flex flex-col gap-4 items-center justify-center">
+            <div className="bg-gray-50 text-white py-24 px-8 flex flex-col gap-4 items-center justify-center relative">
                 <h1 className="text-4xl font-normal text-gray-800">Od Chaosu do Kontroli</h1>
                 <h1 className="text-lg font-normal text-gray-500 mb-5">Przejście z monolitycznych plików Excel do nowoczesnego centralnego repozytorium</h1>
                 
+                <span className="bg-red-600 text-white text-sm rounded-2xl py-2 px-4 absolute left-14 top-52">Stary sposób</span>
+                <span className="bg-green-600 text-white text-sm rounded-2xl py-2 px-4 absolute right-14 top-52">Nowy sposób</span>
                 <div className="w-full flex gap-4">
                     <div className="bg-white rounded-lg p-9 flex-1 flex flex-col gap-6 border border-red-400 text-left shadow-lg">
                         <div className="flex gap-4 items-center">
@@ -130,6 +133,7 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
         </>
     );
