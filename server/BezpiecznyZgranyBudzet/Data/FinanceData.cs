@@ -25,4 +25,8 @@ public class FinanceData
     public string DotacjaZKim { get; set; }
     public string PodstawaPrawnaDotacji { get; set; }
     public string Uwagi { get; set; }
+
+
+    public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
