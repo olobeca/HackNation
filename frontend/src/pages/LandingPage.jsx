@@ -6,6 +6,7 @@ import dataGreen from '../assets/dataGreen.svg';
 import usersGreen from '../assets/usersGreen.svg';
 import checkboxGreen from '../assets/checkboxGreen.svg';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
     return (
@@ -20,7 +21,7 @@ function LandingPage() {
                 </div>
                 <h1 className="text-white font-extralight text-2xl max-w-[65%]">System Koordynacji Planowania Budżetu zapewnia pełną kontrolę, bezpieczeństwo danych i zgodność z przepisami. Transformacja cyfrowa bez ryzyka.</h1>
                 <div className="flex gap-2 max-w-[50%]">
-                    <button className="bg-white hover:bg-gray-50 rounded-lg text-blue-800 text-md items-center justify-center py-4 w-[60%]">Rozpocznij Cyfrową Transformację</button>
+                    <Link to="/login" className="bg-white hover:bg-gray-50 rounded-lg text-blue-800 text-md flex items-center justify-center py-4 w-[60%]">Rozpocznij Cyfrową Transformację</Link>
                     <button className="border-2 border-white rounded-lg text-white text-md items-center justify-center py-4 w-[40%] hover:bg-blue-800">Zobacz Demo</button>
                 </div>
                 <div className="max-w-[70%]">

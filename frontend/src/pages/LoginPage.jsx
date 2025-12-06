@@ -5,6 +5,10 @@ import arrowUp from '../assets/arrowUp.svg';
 import shield from '../assets/shield.svg';
 import arrowRight from '../assets/arrowRight.svg';
 import {useState} from 'react';
+import UserContext from '../context/UserContext';
+import {Link} from 'react-router-dom';
+import { useContext } from 'react';
+
 
 
 function LoginPage() {
@@ -14,6 +18,15 @@ function LoginPage() {
     const [Username, setUsername] = useState('');
 
     const [Department, setDepartment] = useState('')
+
+    const {SetUserData} = useContext(UserContext);
+
+    const handleLogin = () => {
+        SetUserData({
+            username: Username,
+            userDepartment: Department
+        });
+    }
 
     return (
         <div className="bg-gray-50  h-screen flex items-center justify-center">
@@ -56,7 +69,7 @@ function LoginPage() {
                         
                     </div>
                     <div className="w-full mt-6 relative">
-                        <button className={`w-full py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed'} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''}>Przejdź do aplikacji</button>
+                        <Link className={`w-full flex items-center justify-center py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed'} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''} onClick={handleLogin} to="/app">Przejdź do aplikacji</Link>
                         <img src={arrowRight} alt="arrowRight" className="w-6 h-6 absolute right-28 top-4"/>
                     </div>
 
