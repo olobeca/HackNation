@@ -113,6 +113,36 @@ function BezpieczneZarzadzanieBudzetem() {
         );
     };
 
+    const [filters,setFilters] = useState({
+        dzial:"",
+        rozdzial:"",
+        paragraf:"",
+        nazwaZadan:""
+    });
+
+    const handleFilterChange = (filterName, value) => {
+        setFilters({
+            ...filters,
+            [filterName]: value
+        });
+    };
+
+
+
+    const isFilterActive = Object.values(filters).some(value => value.trim() !== "");
+
+
+   const filteredData = isFilterActive 
+        ? Object.keys(tableData).filter(rowId => {
+            return (
+                tableData[rowId].Dzial.toLowerCase().includes(filters.dzial.toLowerCase()) &&
+                tableData[rowId].Rozdzial.toLowerCase().includes(filters.rozdzial.toLowerCase()) &&
+                tableData[rowId].Paragraf.toLowerCase().includes(filters.paragraf.toLowerCase()) &&
+                tableData[rowId].NazwaZadania.toLowerCase().includes(filters.nazwaZadan.toLowerCase())
+            );
+        })
+        : Object.keys(tableData);
+
     return (
         <div className="bg-gray-50 min-h-screen flex flex-col">
             <Header/>
@@ -160,13 +190,13 @@ function BezpieczneZarzadzanieBudzetem() {
                                 <button className="text-xs text-blue-500 bg-blue-50 px-2 rounded-lg">Wyczyść</button>
                             </div>
                             <div className="w-full flex relative gap-3">
-                                <input type="text" placeholder="Dział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <input type="text" value={filters.dzial} placeholder="Dział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" onChange={(e) => handleFilterChange('dzial', e.target.value)} />
                                 <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
-                                <input type="text" placeholder="Rozdział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <input type="text" value={filters.rozdzial} placeholder="Rozdział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" onChange={(e) => handleFilterChange('rozdzial', e.target.value)} />
                                 <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
-                                <input type="text" placeholder="Paragraf" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <input type="text" value={filters.paragraf} placeholder="Paragraf" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" onChange={(e) => handleFilterChange('paragraf', e.target.value)} />
                                 <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
-                                <input type="text" placeholder="Nazwa zadan" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <input type="text" value={filters.nazwaZadan} placeholder="Nazwa zadan" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" onChange={(e) => handleFilterChange('nazwaZadan', e.target.value)} />
                                 <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
                             </div>
                         </div> 
@@ -187,7 +217,7 @@ function BezpieczneZarzadzanieBudzetem() {
                             <img src={editBlue} alt="edit" className="w-6 h-6"/>
                         </div>
                         <div className="flex flex-col gap-1 text-s pr-5 border-l border-gray-300 pl-4">
-                            Wyświetlono {filterLen} z {dataLen} 
+                            Wyświetlono {filteredData.length} z {dataLen} 
                             <h1 className="text-xs text-gray-500">Kliknij komórkę aby edytować</h1>
                         </div>
                         <span className="bg-green-100 text-green-400 py-1 px-2 rounded-lg text-xs">Prawidłowe</span>
@@ -205,7 +235,7 @@ function BezpieczneZarzadzanieBudzetem() {
                                 ))}
                             </div>
                             
-                            {[1, 2, 3, 4].map((row) => (
+                            {filteredData.map((row) => (
                                 <div key={row} className="grid gap-0 group" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
                                     <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">{row}</div>
                                     {columns.map((col) => (
