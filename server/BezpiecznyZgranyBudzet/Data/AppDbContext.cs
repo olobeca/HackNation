@@ -8,5 +8,6 @@ namespace BezpiecznyZgranyBudzet.Data
         {
         }
         public DbSet<FinanceData> FinanceData { get; set; }
+        public DbSet<UserData> UserData { get; set; }
     }
 }

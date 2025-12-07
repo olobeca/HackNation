@@ -19,9 +19,8 @@ namespace BezpiecznyZgranyBudzet.Services
             // search for user in db return guid of session
             await using var dbContext = await _factory.CreateDbContextAsync();
 
-            var user = await dbContext.Users
-                .FirstOrDefaultAsync()
-                .Where(x => x.UserName == user_name && x.UserLastName == user_lastname && x.UserPassword == user_password);
+            var user = await dbContext.UserData
+                .FirstOrDefaultAsync(x => x.UserName == user_name && x.UserLastName == user_lastname && x.UserPassword == user_password);
             if (user == null)
             {
                 return Guid.Empty;
@@ -33,16 +32,15 @@ namespace BezpiecznyZgranyBudzet.Services
                 await dbContext.SaveChangesAsync();
             }
 
-            return user.SessionId;
+            return user.SessionId.Value;
         }
 
         public async Task<bool> Logout(Guid session)
         {
             await using var dbContext = await _factory.CreateDbContextAsync();
 
-            var user = await dbContext.Users
-                .FirstOrDefaultAsync()
-                .Where(x => x.SessionId == session);
+            var user = await dbContext.UserData
+                .FirstOrDefaultAsync(x => x.SessionId == session);
 
             if (user == null)
             {
