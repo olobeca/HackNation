@@ -101,7 +101,7 @@ function LandingPage() {
                             <div className="rounded-lg bg-green-200 w-12 h-12 flex items-center justify-center">
                                 <img src={dataGreen} alt="docs" className="w-9 h-9"/>
                             </div>
-                            <h1 className="text-black text-2xl font-normal">Monolityczny Plik Excel</h1>
+                            <h1 className="text-black text-2xl font-normal">Centralne Master-Repozytorium</h1>
                         </div>
                         <div className="flex gap-4 items-start">
                                 <img src={checkboxGreen} alt="checkboxGreen" className="w-6 h-6"/>

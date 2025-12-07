@@ -71,6 +71,7 @@ function LoginPage() {
                             <button className="p-2 hover:bg-blue-50 cursor-pointer rounded-md w-full text-left" onClick={() => {setDepartment('Departament Infrastruktury'); setIsOpen(false)}}>Departament Infrastruktury</button>
                             <button className="p-2 hover:bg-blue-50 cursor-pointer rounded-md w-full text-left" onClick={() => {setDepartment('Departament Środowiska'); setIsOpen(false)}}>Departament Środowiska</button>
                             <button className="p-2 hover:bg-blue-50 cursor-pointer rounded-md w-full text-left" onClick={() => {setDepartment('Departament Kultury i Turystyki'); setIsOpen(false)}}>Departament Kultury i Turystyki</button>
+                            <button className="p-2 hover:bg-blue-50 cursor-pointer rounded-md w-full text-left" onClick={() => {setDepartment('admin'); setIsOpen(false)}}>admin</button>
                         </div>
                         }
                         
