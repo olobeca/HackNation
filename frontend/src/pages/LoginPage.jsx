@@ -19,27 +19,21 @@ function LoginPage() {
 
     const [Department, setDepartment] = useState('')
 
-    const {SetUserData} = useContext(UserContext);
+    const {SetUserData, UserData} = useContext(UserContext);
 
     const [password, setPassword] = useState('');
 
     async function handleLogin() {
-        SetUserData({
-            username: Username,
-            userDepartment: Department,
-            password: password
-        });
         try {
-            const response = await fetch('http://localhost:8080/api/auth/login?user_name=&user_password=&department=', {
+            const loginData = {username: Username, userDepartment: Department, password: password};
+            SetUserData(loginData);
+            console.log('Attempting login with:', loginData);
+            
+            const response = await fetch(`http://localhost:8080/api/auth/login?user_name=${Username}&user_password=${password}&department=${Department}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    username: Username,
-                    password: password,
-                    department: Department
-                }),
             });
 
             if (!response.ok) {
@@ -48,7 +42,9 @@ function LoginPage() {
 
             const data = await response.json();
             console.log('Login successful:', data);
- 
+            SetUserData({...loginData, token: data.token});
+
+    
         } catch(error) {
             console.error("Login failed:", error);
         }

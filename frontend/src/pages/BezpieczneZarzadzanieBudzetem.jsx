@@ -1,7 +1,5 @@
 import Header from '../components/Header';  
 import {useState} from 'react';
-import docsGray from '../assets/docsGray.svg';
-import docsWhite from '../assets/docsWhite.svg';
 import filtersBlue from '../assets/filtersBlue.svg';
 import glass from '../assets/glass.svg';
 import shield from '../assets/shield.svg';
@@ -127,6 +125,15 @@ function BezpieczneZarzadzanieBudzetem() {
         });
     };
 
+    const ClearFilters = () => {
+        setFilters({
+            dzial:"",
+            rozdzial:"",
+            paragraf:"",
+            nazwaZadan:""
+        });
+    }
+
 
 
     const isFilterActive = Object.values(filters).some(value => value.trim() !== "");
@@ -171,7 +178,6 @@ function BezpieczneZarzadzanieBudzetem() {
                                 <h1 className="text-sm text-gray-500">Akcje</h1>
                                 <h1 className="text-xs text-gray-400 mb-4">Zarządzaj zmianami w budżecie</h1>
                                 <button className="w-full py-4 rounded-xl bg-gray-100 text-gray-400 text-base cursor-not-allowed">Zapisz do Master-Repozytorium</button>
-                                <img src={docsGray} alt="dosc" className="w-8 h-8 absolute top-5 right-5 opacity-20"/>
                             </div>
                         )}
                     </div>
@@ -187,7 +193,7 @@ function BezpieczneZarzadzanieBudzetem() {
                                         <h1 className="text-gray-500 text-xs">Zawęź wyniki wyszukiwania</h1>
                                     </div>
                                 </div>
-                                <button className="text-xs text-blue-500 bg-blue-50 px-2 rounded-lg">Wyczyść</button>
+                                <button className="text-xs text-blue-500 bg-blue-50 px-2 rounded-lg" onClick={ClearFilters}>Wyczyść</button>
                             </div>
                             <div className="w-full flex relative gap-3">
                                 <input type="text" value={filters.dzial} placeholder="Dział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" onChange={(e) => handleFilterChange('dzial', e.target.value)} />

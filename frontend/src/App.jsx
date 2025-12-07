@@ -9,7 +9,7 @@ import BezpieczneZarzadzanieBudzetem from './pages/BezpieczneZarzadzanieBudzetem
 
 
 function App() {
-  const [UserData,SetUserData] = useState({username:"",userDepartment:"",password:""});
+  const [UserData,SetUserData] = useState({username:"",userDepartment:"",password:"",token:""});
   return (
     <>
       <UserContext.Provider value={{UserData:UserData,SetUserData:SetUserData}}>
