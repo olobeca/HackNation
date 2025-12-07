@@ -17,10 +17,17 @@ namespace BezpiecznyZgranyBudzet.Controllers
             _financeServices = financeServices;
         }
 
+        [HttpPost("adddata")]
+        public async Task<IActionResult> AddFinanceData(Guid session, string department)
+        {
+            await _financeServices.AddFinanceData(session, department);
+            return Ok();
+        }
+
         [HttpPost("data")]
         public async Task<IActionResult> UpdateFinanceData([FromBody] List<FinanceDataVM> financeData)
         {
-            _financeServices.UpdateFinanceData(financeData);
+            await _financeServices.UpdateFinanceData(financeData);
             return Ok();
         }
 

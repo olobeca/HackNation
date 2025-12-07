@@ -3,6 +3,7 @@ using System;
 using BezpiecznyZgranyBudzet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BezpiecznyZgranyBudzet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251207044335_adding_tags_to_finance")]
+    partial class adding_tags_to_finance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,6 +155,10 @@ namespace BezpiecznyZgranyBudzet.Migrations
 
                     b.Property<Guid?>("SessionId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("UserLastName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("UserName")
                         .IsRequired()

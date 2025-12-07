@@ -47,5 +47,52 @@ namespace BezpiecznyZgranyBudzet.Services
             await using var dbContext = await _factory.CreateDbContextAsync();
             return await dbContext.FinanceData.ToListAsync();
         }
+
+        public async Task AddFinanceData(Guid session, string department)
+        {
+            await using var dbContext = await _factory.CreateDbContextAsync();
+
+            var user = await dbContext.UserData.FirstOrDefaultAsync(u => u.SessionId == session && u.Organisation=="admin");
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("Invalid session or insufficient permissions.");
+            }
+
+            var newFinanceData = new FinanceData
+            {
+                Id = Guid.NewGuid(),
+                KomorkaOrganizacyjna = department,
+                CzescBudzetowa = "",
+                Dzial = "",
+                Rozdzial = "",
+                Paragraf = "",
+                ZrodloFinansowania = "",
+                GrupaWydatkow = "",
+                BudzetZadaniowyPelny = "",
+                BudzetZadaniowy = "",
+                NazwaProgramu = "",
+                PlanWI = 0,
+                DysponentSrodkow = "",
+                Budzet = 0,
+                NazwaZadania = "",
+                SzczegoloweUzasadnienie = "",
+                Przeznaczenie = "",
+                Potrzeby2026 = 0,
+                Limit2026 = 0,
+                BrakujacaKwota2026 = 0,
+                KwotaUmowy = 0,
+                NrUmowy = "",
+                DotacjaZKim = "",
+                PodstawaPrawnaDotacji = "",
+                Uwagi = "",
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow,
+                IsAccesible = false
+            };
+
+            await dbContext.FinanceData.AddAsync(newFinanceData);
+            await dbContext.SaveChangesAsync();
+        }
+
     }
 }

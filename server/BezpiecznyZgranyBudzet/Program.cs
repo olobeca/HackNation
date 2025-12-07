@@ -31,7 +31,9 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
 });
 
 builder.Services.AddTransient<AuthServices>();
-builder.Services.AddTransient<FinanceData>();
+builder.Services.AddTransient<FinanceServices>();
+builder.Services.AddTransient<PermServices>();
+
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
