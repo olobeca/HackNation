@@ -23,13 +23,38 @@ function LoginPage() {
 
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
+    async function handleLogin() {
         SetUserData({
             username: Username,
             userDepartment: Department,
             password: password
         });
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/login?user_name=&user_password=&department=', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: Username,
+                    password: password,
+                    department: Department
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Login successful:', data);
+ 
+        } catch(error) {
+            console.error("Login failed:", error);
+        }
     }
+
+
 
     return (
         <div className="bg-gray-50  h-screen flex items-center justify-center">
