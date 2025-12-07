@@ -15,6 +15,8 @@ function BezpieczneZarzadzanieBudzetem() {
 
     const [filterLen,SetfilterLen] = useState(5);
 
+    const [dataToPush,SetdataToPush] = useState({Id:"",header:"",newValue:""}); //
+
     return (
         <div className="bg-gray-50 min-h-screen flex flex-col">
             <Header/>
@@ -128,31 +130,35 @@ function BezpieczneZarzadzanieBudzetem() {
                             {/* Data Rows */}
                             {[1, 2, 3, 4].map((row) => (
                                 <div key={row} className="grid gap-0" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">{row}</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">{row}</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100 flex flex-col">
+                                        <input type="text" defaultValue="Dane" className="w-full bg-transparent focus:border focus:border-blue-500 focus:rounded-xl focus:font-bold"/>
+                                        <button className="w-full bg-blue-500 text-white rounded-xl mt-2">Zatwierdz</button>
+                                        <button className="w-full bg-red-500 text-white rounded-xl mt-2">Anuluj</button>
+                                    </div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
                                 </div>
                             ))}
                         </div>
