@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
+            policy.WithOrigins("http://localhost:3000") 
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -40,6 +40,8 @@ builder.Services.AddRouting(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {

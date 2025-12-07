@@ -119,6 +119,7 @@ namespace BezpiecznyZgranyBudzet.Services
             dbContext.UserData.Add(user6);
             dbContext.UserData.Add(user7);
             dbContext.UserData.Add(user8);
+            dbContext.UserData.Add(user9);
 
             await dbContext.SaveChangesAsync();
 

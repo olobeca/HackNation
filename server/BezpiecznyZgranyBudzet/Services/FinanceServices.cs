@@ -94,5 +94,9 @@ namespace BezpiecznyZgranyBudzet.Services
             await dbContext.SaveChangesAsync();
         }
 
+        public Task<List<FinanceDataVM>> PullData(Guid session)
+        {;
+        }
+
     }
 }
