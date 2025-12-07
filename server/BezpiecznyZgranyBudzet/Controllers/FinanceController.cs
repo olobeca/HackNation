@@ -37,5 +37,12 @@ namespace BezpiecznyZgranyBudzet.Controllers
             var data = _financeServices.GetFinanceData();
             return Ok(data);
         }
+
+        [HttpPost("pulldata")]
+        public async Task<IActionResult> PullData(Guid session)
+        {
+            var data = await _financeServices.PullData(session);
+            return Ok(data);
+        }
     }
 }

@@ -94,7 +94,7 @@ namespace BezpiecznyZgranyBudzet.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<FinanceData>> PullData(Guid session)
+        public async Task<List<FinanceDataVM>> PullData(Guid session)
         {
             var dbContext = await _factory.CreateDbContextAsync();
             var user = await dbContext.UserData.FirstOrDefaultAsync(u => u.SessionId == session);
@@ -102,8 +102,52 @@ namespace BezpiecznyZgranyBudzet.Services
             {
                 throw new UnauthorizedAccessException("Invalid session or insufficient permissions.");
             }
-            return await dbContext.FinanceData.ToListAsync();
-        }
 
+            var list_finance = dbContext.FinanceData.Where(f => f.KomorkaOrganizacyjna == user.Organisation);
+
+            List<FinanceDataVM> financeDataVMs = new List<FinanceDataVM>();
+
+            foreach(var item in list_finance)
+            {
+                if(user.Organisation != "admin" && item.IsAccesible == false)
+                {
+                    continue;
+                }
+                else
+                {
+                    var newFinanceDataVm = new FinanceDataVM
+                    {
+                        Id = item.Id,
+                        KomorkaOrganizacyjna = item.KomorkaOrganizacyjna,
+                        CzescBudzetowa = item.CzescBudzetowa,
+                        Dzial = item.Dzial,
+                        Rozdzial = item.Rozdzial,
+                        Paragraf = item.Paragraf,
+                        ZrodloFinansowania = item.ZrodloFinansowania,
+                        GrupaWydatkow = item.GrupaWydatkow,
+                        BudzetZadaniowyPelny = item.BudzetZadaniowyPelny,
+                        BudzetZadaniowy = item.BudzetZadaniowy,
+                        NazwaProgramu = item.NazwaProgramu,
+                        PlanWI = item.PlanWI,
+                        DysponentSrodkow = item.DysponentSrodkow,
+                        Budzet = item.Budzet,
+                        NazwaZadania = item.NazwaZadania,
+                        SzczegoloweUzasadnienie = item.SzczegoloweUzasadnienie,
+                        Przeznaczenie = item.Przeznaczenie,
+                        Potrzeby2026 = item.Potrzeby2026,
+                        Limit2026 = item.Limit2026,
+                        BrakujacaKwota2026 = item.BrakujacaKwota2026,
+                        KwotaUmowy = item.KwotaUmowy,
+                        NrUmowy = item.NrUmowy,
+                        DotacjaZKim = item.DotacjaZKim,
+                        PodstawaPrawnaDotacji = item.PodstawaPrawnaDotacji,
+                        Uwagi = item.Uwagi,
+                    };
+                    financeDataVMs.Add(newFinanceDataVm);
+                }
+            }
+
+            return financeDataVMs;
+        }
     }
 }
