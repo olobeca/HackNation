@@ -2,16 +2,19 @@ import Header from '../components/Header';
 import {useState} from 'react';
 import docsGray from '../assets/docsGray.svg';
 import docsWhite from '../assets/docsWhite.svg';
+import filtersBlue from '../assets/filtersBlue.svg';
+import glass from '../assets/glass.svg';
+import shield from '../assets/shield.svg';
 
 function BezpieczneZarzadzanieBudzetem() {
 
-    const [isChanged,SetisChanged] = useState(true);
+    const [isChanged,SetisChanged] = useState(false);
 
     return (
-        <div className="bg-gray-50 h-screen">
+        <div className="bg-gray-50 min-h-screen flex flex-col">
             <Header/>
             <div className="flex flex-col px-12">
-                <div className="w-full flex gap-5 items-center mt-5">
+                <div className="w-full flex gap-5 items-stretch mt-5">
                     <div className="bg-white shadow-md w-[65%] rounded-xl p-8 relative">
                         {isChanged ? (
                             <div className="flex flex-col gap-1 text-left ">
@@ -37,9 +40,41 @@ function BezpieczneZarzadzanieBudzetem() {
                             </div>
                         )}
                     </div>
-                    <div className="bg-white shadow-md rounded-xl p-5 w-full">
-
+                    <div className={`bg-white shadow-md rounded-xl p-5 w-full ${isChanged ? "h-70" : "h-[45]"}`}>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex justify-between mb-4">
+                                <div className="flex gap-4 items-center">
+                                    <div className="w-8 h-8 flex items-center justify-center     bg-blue-200 rounded-xl">
+                                        <img src={filtersBlue} alt='filters' className="h-6 w-6"></img>
+                                    </div>
+                                    <div className="flex flex-col gap-0 text-left">
+                                        <h1 className="text-gray-900 text-sm">Filtry</h1>
+                                        <h1 className="text-gray-500 text-xs">Zawęź wyniki wyszukiwania</h1>
+                                    </div>
+                                </div>
+                                <button className="text-xs text-blue-500 bg-blue-50 px-2 rounded-lg">Wyczyść</button>
+                            </div>
+                            <div className="w-full flex relative gap-3">
+                                <input type="text" placeholder="Dział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
+                                <input type="text" placeholder="Rozdział" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
+                                <input type="text" placeholder="Paragraf" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
+                                <input type="text" placeholder="Nazwa zadan" className="w-full relative border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"/>
+                                <img src={glass} alt="search" className="w-6 h-6 absolute right-3 top-2 cursor-pointer"/>
+                            </div>
+                        </div> 
                     </div>
+                </div>
+                <div className="w-full bg-blue-50 border border-blue-100 flex gap-4 rounded-xl p-5 mt-4 items-center">
+                    <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
+                        <img src={shield} alt="shield" className="w-6 h-6"/>  
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <h1 className="text-blue-700 text-sm">Bezpieczne zarządzanie budżetem</h1>
+                        <p className="text-blue-600 text-xs">Wszystkie komórki są edytowalne. System automatycznie sprawdza zgodność z klasyfikacją budżetową i blokowaniem nieprawidłowych danych przed zapisem do centralnego repozytorium.</p>
+                    </div>x
                 </div>
             </div>
         </div>
