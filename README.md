@@ -28,19 +28,12 @@ npm start
 
 Aplikacja otworzy się na `http://localhost:3000`
 
-### Konfiguracja backendu
+### How to run backend locally:
+navigate to /server
+docker-compose up --build
+api should now run on http://localhost:8080/
+view docs and test at http://localhost:8080/scalar/v1
 
-Upewnij się, że backend działa na:
-- `http://localhost:8080` - API autentykacji
-- `http://localhost:5000` - API pobierania dokumentów
-
-### Dostępne skrypty
-
-```bash
-npm start      # Uruchamia aplikację w trybie development
-npm test       # Uruchamia testy
-npm build      # Buduje aplikację do produkcji
-```
 
 ### Struktura projektu
 
