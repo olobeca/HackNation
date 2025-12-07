@@ -9,13 +9,109 @@ import editBlue from '../assets/editBlue.svg';
 
 function BezpieczneZarzadzanieBudzetem() {
 
-    const [isChanged,SetisChanged] = useState(false);
+    const [isChanged, SetisChanged] = useState(false);
+    const [dataLen, SetdataLen] = useState(5);
+    const [filterLen, SetfilterLen] = useState(5);
+    const [dataToPush, SetdataToPush] = useState([]);
+    const [editingCell, setEditingCell] = useState(null);
+    const [originalValue, setOriginalValue] = useState("");
+    const [tempValue, setTempValue] = useState("");
+    const [tableData, setTableData] = useState({
+        1: { CzescBudzetowa: "Dane", Dzial: "Dane", Rozdzial: "Dane", Paragraf: "Dane", ZrodloFinansowania: "Dane", GrupaWydatkow: "Dane", BudzetZadaniowyPelny: "Dane", BudzetZadaniowy: "Dane", NazwaProgram: "Dane", KomorkaOrganizacyjna: "Dane", PlanWI: "Dane", DysponentSrodkow: "Dane", Budzet: "Dane", NazwaZadania: "Dane", SzczegolowjeUzasadnienie: "Dane", Przeznaczenie: "Dane", Potrzeby2026: "Dane", Limit2026: "Dane", BrakujacaKwota2026: "Dane", KwotaUmowy: "Dane", NrUmowy: "Dane", DotacjaZKim: "Dane", PodstawaPrawna: "Dane", Uwagi: "Dane" },
+        2: { CzescBudzetowa: "Dane", Dzial: "Dane", Rozdzial: "Dane", Paragraf: "Dane", ZrodloFinansowania: "Dane", GrupaWydatkow: "Dane", BudzetZadaniowyPelny: "Dane", BudzetZadaniowy: "Dane", NazwaProgram: "Dane", KomorkaOrganizacyjna: "Dane", PlanWI: "Dane", DysponentSrodkow: "Dane", Budzet: "Dane", NazwaZadania: "Dane", SzczegolowjeUzasadnienie: "Dane", Przeznaczenie: "Dane", Potrzeby2026: "Dane", Limit2026: "Dane", BrakujacaKwota2026: "Dane", KwotaUmowy: "Dane", NrUmowy: "Dane", DotacjaZKim: "Dane", PodstawaPrawna: "Dane", Uwagi: "Dane" },
+        3: { CzescBudzetowa: "Dane", Dzial: "Dane", Rozdzial: "Dane", Paragraf: "Dane", ZrodloFinansowania: "Dane", GrupaWydatkow: "Dane", BudzetZadaniowyPelny: "Dane", BudzetZadaniowy: "Dane", NazwaProgram: "Dane", KomorkaOrganizacyjna: "Dane", PlanWI: "Dane", DysponentSrodkow: "Dane", Budzet: "Dane", NazwaZadania: "Dane", SzczegolowjeUzasadnienie: "Dane", Przeznaczenie: "Dane", Potrzeby2026: "Dane", Limit2026: "Dane", BrakujacaKwota2026: "Dane", KwotaUmowy: "Dane", NrUmowy: "Dane", DotacjaZKim: "Dane", PodstawaPrawna: "Dane", Uwagi: "Dane" },
+        4: { CzescBudzetowa: "Dane", Dzial: "Dane", Rozdzial: "Dane", Paragraf: "Dane", ZrodloFinansowania: "Dane", GrupaWydatkow: "Dane", BudzetZadaniowyPelny: "Dane", BudzetZadaniowy: "Dane", NazwaProgram: "Dane", KomorkaOrganizacyjna: "Dane", PlanWI: "Dane", DysponentSrodkow: "Dane", Budzet: "Dane", NazwaZadania: "Dane", SzczegolowjeUzasadnienie: "Dane", Przeznaczenie: "Dane", Potrzeby2026: "Dane", Limit2026: "Dane", BrakujacaKwota2026: "Dane", KwotaUmowy: "Dane", NrUmowy: "Dane", DotacjaZKim: "Dane", PodstawaPrawna: "Dane", Uwagi: "Dane" }
+    });
 
-    const [dataLen,SetdataLen] = useState(5);
+    const columns = [
+        { key: "CzescBudzetowa", label: "Część Budżetowa" },
+        { key: "Dzial", label: "Dział" },
+        { key: "Rozdzial", label: "Rozdział" },
+        { key: "Paragraf", label: "Paragraf" },
+        { key: "ZrodloFinansowania", label: "Źródło Finansowania" },
+        { key: "GrupaWydatkow", label: "Grupa Wydatków" },
+        { key: "BudzetZadaniowyPelny", label: "Budżet Zadaniowy Pełny" },
+        { key: "BudzetZadaniowy", label: "Budżet Zadaniowy" },
+        { key: "NazwaProgram", label: "Nazwa Programu" },
+        { key: "KomorkaOrganizacyjna", label: "Komórka Organizacyjna" },
+        { key: "PlanWI", label: "Plan WI" },
+        { key: "DysponentSrodkow", label: "Dysponent Środków" },
+        { key: "Budzet", label: "Budżet" },
+        { key: "NazwaZadania", label: "Nazwa Zadania" },
+        { key: "SzczegolowjeUzasadnienie", label: "Szczegółowe Uzasadnienie" },
+        { key: "Przeznaczenie", label: "Przeznaczenie" },
+        { key: "Potrzeby2026", label: "Potrzeby 2026" },
+        { key: "Limit2026", label: "Limit 2026" },
+        { key: "BrakujacaKwota2026", label: "Brakująca Kwota 2026" },
+        { key: "KwotaUmowy", label: "Kwota Umowy" },
+        { key: "NrUmowy", label: "Nr Umowy" },
+        { key: "DotacjaZKim", label: "Dotacja Z Kim" },
+        { key: "PodstawaPrawna", label: "Podstawa Prawna Dotacji" },
+        { key: "Uwagi", label: "Uwagi" }
+    ];
 
-    const [filterLen,SetfilterLen] = useState(5);
+    const handleCellClick = (rowId, columnName, currentValue) => {
+        setEditingCell({ rowId, columnName });
+        setOriginalValue(currentValue);
+        setTempValue(currentValue);
+    };
 
-    const [dataToPush,SetdataToPush] = useState({Id:"",header:"",newValue:""}); //
+    const handleConfirm = (rowId, columnName) => {
+        if (tempValue !== originalValue) {
+            SetdataToPush([...dataToPush, { rowId, columnName, newValue: tempValue }]);
+            SetisChanged(true);
+            setTableData({
+                ...tableData,
+                [rowId]: {
+                    ...tableData[rowId],
+                    [columnName]: tempValue
+                }
+            });
+        }
+        setEditingCell(null);
+    };
+
+    const handleCancel = () => {
+        setTempValue(originalValue);
+        setEditingCell(null);
+    };
+
+    const renderCell = (row, columnKey) => {
+        const isEditing = editingCell?.rowId === row && editingCell?.columnName === columnKey;
+        const currentValue = tableData[row]?.[columnKey] || "Dane";
+
+        if (isEditing) {
+            return (
+                <>
+                    <input 
+                        type="text" 
+                        value={tempValue} 
+                        onChange={(e) => setTempValue(e.target.value)}
+                        className="w-full bg-white border border-blue-500 rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoFocus
+                    />
+                    <button 
+                        onClick={() => handleConfirm(row, columnKey)}
+                        className="w-full bg-blue-500 text-white rounded-xl mt-2 text-xs py-1 hover:bg-blue-600"
+                    >
+                        Zatwierdź
+                    </button>
+                    <button 
+                        onClick={handleCancel}
+                        className="w-full bg-red-500 text-white rounded-xl mt-1 text-xs py-1 hover:bg-red-600"
+                    >
+                        Anuluj
+                    </button>
+                </>
+            );
+        }
+
+        return (
+            <span onClick={() => handleCellClick(row, columnKey, currentValue)}>
+                {currentValue}
+            </span>
+        );
+    };
 
     return (
         <div className="bg-gray-50 min-h-screen flex flex-col">
@@ -87,7 +183,7 @@ function BezpieczneZarzadzanieBudzetem() {
                         <div className="flex items-center justify-center w-9 h-9 bg-blue-200 rounded-lg">
                             <img src={editBlue} alt="edit" className="w-6 h-6"/>
                         </div>
-                        <div className="flex flex-col gap-1 text-s pr-5">
+                        <div className="flex flex-col gap-1 text-s pr-5 border-l border-gray-300 pl-4">
                             Wyświetlono {filterLen} z {dataLen} 
                             <h1 className="text-xs text-gray-500">Kliknij komórkę aby edytować</h1>
                         </div>
@@ -95,70 +191,25 @@ function BezpieczneZarzadzanieBudzetem() {
                         <span className="bg-red-100 text-red-400 py-1 px-2 rounded-lg text-xs">Błąd klasyfikacji</span>
                         <span className="bg-yellow-100 text-yellow-400 py-1 px-2 rounded-lg text-xs">Ostrzezenie</span>
                     </div>
-                                        <div className="bg-gray-50 rounded-xl overflow-auto border border-gray-100 p-5 max-h-[400px] w-full">
-                        {/* Table */}
+                    <div className="bg-gray-50 rounded-xl overflow-auto border border-gray-100 p-5 max-h-[400px] w-full">
                         <div className="inline-block min-w-full">
-                            {/* Header Row */}
-                            <div className="grid gap-0 sticky left-0 z-10" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
+                            <div className="grid gap-0 sticky top-0 z-10" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
                                 <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Id</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Część Budżetowa</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dział</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Rozdział</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Paragraf</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Źródło Finansowania</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Grupa Wydatków</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy Pełny</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Programu</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Komórka Organizacyjna</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Plan WI</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dysponent Środków</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Zadania</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Szczegółowe Uzasadnienie</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Przeznaczenie</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Potrzeby 2026</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Limit 2026</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Brakująca Kwota 2026</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Kwota Umowy</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nr Umowy</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dotacja Z Kim</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Podstawa Prawna Dotacji</div>
-                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Uwagi</div>
+                                {columns.map((col) => (
+                                    <div key={col.key} className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">
+                                        {col.label}
+                                    </div>
+                                ))}
                             </div>
                             
-                            {/* Data Rows */}
                             {[1, 2, 3, 4].map((row) => (
-                                <div key={row} className="grid gap-0" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
+                                <div key={row} className="grid gap-0 group" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
                                     <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">{row}</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100 flex flex-col">
-                                        <input type="text" defaultValue="Dane" className="w-full bg-transparent focus:border focus:border-blue-500 focus:rounded-xl focus:font-bold"/>
-                                        <button className="w-full bg-blue-500 text-white rounded-xl mt-2">Zatwierdz</button>
-                                        <button className="w-full bg-red-500 text-white rounded-xl mt-2">Anuluj</button>
-                                    </div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
-                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-gray-100">Dane</div>
+                                    {columns.map((col) => (
+                                        <div key={col.key} className="bg-white p-3 border border-gray-200 text-xs text-gray-700 hover:bg-blue-50 flex flex-col cursor-pointer">
+                                            {renderCell(row, col.key)}
+                                        </div>
+                                    ))}
                                 </div>
                             ))}
                         </div>
