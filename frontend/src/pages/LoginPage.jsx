@@ -21,16 +21,19 @@ function LoginPage() {
 
     const {SetUserData} = useContext(UserContext);
 
+    const [password, setPassword] = useState('');
+
     const handleLogin = () => {
         SetUserData({
             username: Username,
-            userDepartment: Department
+            userDepartment: Department,
+            password: password
         });
     }
 
     return (
         <div className="bg-gray-50  h-screen flex items-center justify-center">
-            <div className="shadow-lg rounded-lg p-4 w-1/3 py-12 px-6 flex flex-col bg-white ">
+            <div className="shadow-lg rounded-lg p-4 w-1/3 py-2 px-6 flex flex-col bg-white ">
                 <div className="flex flex-col gap-4 items-center">
                     <div className="w-16 h-16 rounded-xl bg-blue-600 flex items-center justify-center">
                         <img src={lockWhite} alt="lock" className="w-11 h-11"/>
@@ -41,9 +44,13 @@ function LoginPage() {
                         <h1 className="text-xs text-green-700">Bezpieczna Segmentacja Danych</h1>
                         <h1 className="text-xs text-green-600">Uzyskasz dostęp tylko do danych swojego departamentu. Wszystkie operacje są monitorowane i zabezpieczone.</h1>
                     </div>
-                    <div className="text-left w-full mt-4 flex flex-col gap-2">
+                    <div className="text-left w-full mt-2 flex flex-col gap-2">
                         <h1 className="text-sm text-gray-600">Imię i nazwisko</h1>
                         <input type="text" className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" placeholder='Np. Jan Kowalski' value={Username} onChange={(e) => setUsername(e.target.value)}/>
+                    </div>
+                    <div className="text-left w-full mt-2 flex flex-col gap-2">
+                        <h1 className="text-sm text-gray-600">Hasło</h1>
+                        <input type="text" className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base" placeholder='**********' value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className="text-left w-full mt-4 flex flex-col gap-1 relative">
                         <h1 className="text-sm text-gray-600">Wybierz swój departament</h1>
@@ -69,14 +76,14 @@ function LoginPage() {
                         
                     </div>
                     <div className="w-full mt-6 relative">
-                        <Link className={`w-full flex items-center justify-center py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed '} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''} onClick={handleLogin} to="/BezpieczneZarzadzanieBudzetem">Przejdź do aplikacji</Link>
+                        <Link className={`w-full flex items-center justify-center py-4 ${Username !== '' && Department !== '' ? 'bg-blue-700 hover:bg-blue-900' : 'bg-blue-300 cursor-not-allowed '} text-white p-3 rounded-lg transition duration-200`} disabled={Username === '' || Department === ''} onClick={handleLogin} to={`${Username !== '' && Department !== '' ?`/BezpieczneZarzadzanieBudzetem`:`/login`}`}>Przejdź do aplikacji</Link>
                         <img src={arrowRight} alt="arrowRight" className="w-6 h-6 absolute right-28 top-4"/>
                     </div>
 
-                    <div className="w-full mt-4">
+                    <div className="w-full mt-2">
                         <hr className="border border-gray-100"></hr>
                     </div>
-                    <div className="w-full flex mt-2 items-center gap-2">
+                    <div className="w-full flex mt-2 mb-2 items-center gap-2">
                         <img src={shield} alt="shield" className="w-5 h-5"/>
                         <h1 className="text-xs text-gray-400">Twoja sesja jest szyfrowana i zabezpieczona. Wszystkie działania są rejestrowane zgodnie z wymogami audytu.</h1>
                     </div>
