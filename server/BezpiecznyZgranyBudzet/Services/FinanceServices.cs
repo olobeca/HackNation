@@ -44,7 +44,7 @@ namespace BezpiecznyZgranyBudzet.Services
 
         public async Task<List<FinanceData>> GetFinanceData()
         {
-            await using var dbContext = await _factory.CreateDbContextAsync();
+            using var dbContext = await _factory.CreateDbContextAsync();
             return await dbContext.FinanceData.ToListAsync();
         }
 
@@ -94,9 +94,16 @@ namespace BezpiecznyZgranyBudzet.Services
             await dbContext.SaveChangesAsync();
         }
 
-        //public Task<List<FinanceDataVM>> PullData(Guid session)
-        //{;
-        //}
+        public async Task<List<FinanceData>> PullData(Guid session)
+        {
+            var dbContext = await _factory.CreateDbContextAsync();
+            var user = await dbContext.UserData.FirstOrDefaultAsync(u => u.SessionId == session);
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("Invalid session or insufficient permissions.");
+            }
+            return await dbContext.FinanceData.ToListAsync();
+        }
 
     }
 }
