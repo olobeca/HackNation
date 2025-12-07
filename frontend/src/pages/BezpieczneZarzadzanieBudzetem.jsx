@@ -31,7 +31,6 @@ function BezpieczneZarzadzanieBudzetem() {
                                     <div className="bg-yellow-50 text-yellow-600 text-xs font-medium px-3 py-1 rounded-full motion-preset-pulse motion-duration-2000 ">Niezapisane zmiany</div>
                                 </div>
                                 <button className="w-full py-4 rounded-xl bg-green-600 hover:bg-green-700 hover:shadow-lg hover:scale-105 text-white text-base shadow-md">Zapisz do Master-Repozytorium</button>
-                                <img src={docsWhite} alt="dosc" className="w-8 h-8 absolute top-5 right-5 opacity-20"/>
                                 <div className="mt-4 flex w-full p-4 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-lg text-xs" role="alert">
                                     <p>Pamiętaj, aby zapisać wprowadzone zmiany. Nieprawidłowe dane zostaną automatycznie odrzucone.</p>
                                 </div>
@@ -41,7 +40,7 @@ function BezpieczneZarzadzanieBudzetem() {
                                 <h1 className="text-sm text-gray-500">Akcje</h1>
                                 <h1 className="text-xs text-gray-400 mb-4">Zarządzaj zmianami w budżecie</h1>
                                 <button className="w-full py-4 rounded-xl bg-gray-100 text-gray-400 text-base cursor-not-allowed">Zapisz do Master-Repozytorium</button>
-                                <img src={docsGray} alt="dosc" className="w-8 h-8 absolute top-0 right-0 opacity-20"/>
+                                <img src={docsGray} alt="dosc" className="w-8 h-8 absolute top-5 right-5 opacity-20"/>
                             </div>
                         )}
                     </div>
@@ -94,37 +93,68 @@ function BezpieczneZarzadzanieBudzetem() {
                         <span className="bg-red-100 text-red-400 py-1 px-2 rounded-lg text-xs">Błąd klasyfikacji</span>
                         <span className="bg-yellow-100 text-yellow-400 py-1 px-2 rounded-lg text-xs">Ostrzezenie</span>
                     </div>
-                    <div className="bg-gray-50 rounded-xl overflow-x-auto border border-gray-100 p-5 max-h-[400px] w-full">
-                        {/* Table Header */}
-                        <div className="grid grid-cols-[25] gap-0 sticky top-0 bg-white">
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Id</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Część Budżetowa</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dział</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Rozdział</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Paragraf</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Źródło Finansowania</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Grupa Wydatków</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy Pełny</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Programu</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Komórka Organizacyjna</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Plan WI</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dysponent Środków</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Zadania</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Szczegółowe Uzasadnienie</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Przeznaczenie</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Potrzeby 2026</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Limit 2026</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Brakująca Kwota 2026</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Kwota Umowy</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nr Umowy</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dotacja Z Kim</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Podstawa Prawna Dotacji</div>
-                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Uwagi</div>
-                            <div>
-                                wdknwenfc
+                                        <div className="bg-gray-50 rounded-xl overflow-auto border border-gray-100 p-5 max-h-[400px] w-full">
+                        {/* Table */}
+                        <div className="inline-block min-w-full">
+                            {/* Header Row */}
+                            <div className="grid gap-0 sticky left-0 z-10" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Id</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Część Budżetowa</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dział</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Rozdział</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Paragraf</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Źródło Finansowania</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Grupa Wydatków</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy Pełny</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Programu</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Komórka Organizacyjna</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Plan WI</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dysponent Środków</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Zadania</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Szczegółowe Uzasadnienie</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Przeznaczenie</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Potrzeby 2026</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Limit 2026</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Brakująca Kwota 2026</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Kwota Umowy</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nr Umowy</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dotacja Z Kim</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Podstawa Prawna Dotacji</div>
+                                <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Uwagi</div>
                             </div>
+                            
+                            {/* Data Rows */}
+                            {[1, 2, 3, 4].map((row) => (
+                                <div key={row} className="grid gap-0" style={{gridTemplateColumns: 'repeat(25, minmax(120px, 1fr))'}}>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">{row}</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                    <div className="bg-white p-3 border border-gray-200 text-xs text-gray-700">Dane</div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
