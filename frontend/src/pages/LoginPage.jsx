@@ -50,8 +50,6 @@ function LoginPage() {
         }
     }
 
-
-
     return (
         <div className="bg-gray-50  h-screen flex items-center justify-center">
             <div className="shadow-lg rounded-lg p-4 w-1/3 py-2 px-6 flex flex-col bg-white ">
