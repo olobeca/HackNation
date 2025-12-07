@@ -58,8 +58,8 @@ src/
 
 - React
 - React Router
-- Tailwind CSS
 - Context API
+- Tailwind CSS
 
 ### Kontakt
 
