@@ -5,10 +5,15 @@ import docsWhite from '../assets/docsWhite.svg';
 import filtersBlue from '../assets/filtersBlue.svg';
 import glass from '../assets/glass.svg';
 import shield from '../assets/shield.svg';
+import editBlue from '../assets/editBlue.svg';
 
 function BezpieczneZarzadzanieBudzetem() {
 
     const [isChanged,SetisChanged] = useState(false);
+
+    const [dataLen,SetdataLen] = useState(5);
+
+    const [filterLen,SetfilterLen] = useState(5);
 
     return (
         <div className="bg-gray-50 min-h-screen flex flex-col">
@@ -74,9 +79,57 @@ function BezpieczneZarzadzanieBudzetem() {
                     <div className="flex flex-col gap-1">
                         <h1 className="text-blue-700 text-sm">Bezpieczne zarządzanie budżetem</h1>
                         <p className="text-blue-600 text-xs">Wszystkie komórki są edytowalne. System automatycznie sprawdza zgodność z klasyfikacją budżetową i blokowaniem nieprawidłowych danych przed zapisem do centralnego repozytorium.</p>
-                    </div>x
+                    </div>
+                </div>
+                <div className="flex flex-col gap-0 rounded-xl mt-5 bg-white shadow-md">
+                    <div className="flex gap-6 items-center p-5 border-b border-gray-200">
+                        <div className="flex items-center justify-center w-9 h-9 bg-blue-200 rounded-lg">
+                            <img src={editBlue} alt="edit" className="w-6 h-6"/>
+                        </div>
+                        <div className="flex flex-col gap-1 text-s pr-5">
+                            Wyświetlono {filterLen} z {dataLen} 
+                            <h1 className="text-xs text-gray-500">Kliknij komórkę aby edytować</h1>
+                        </div>
+                        <span className="bg-green-100 text-green-400 py-1 px-2 rounded-lg text-xs">Prawidłowe</span>
+                        <span className="bg-red-100 text-red-400 py-1 px-2 rounded-lg text-xs">Błąd klasyfikacji</span>
+                        <span className="bg-yellow-100 text-yellow-400 py-1 px-2 rounded-lg text-xs">Ostrzezenie</span>
+                    </div>
+                    <div className="bg-gray-50 rounded-xl overflow-x-auto border border-gray-100 p-5 max-h-[400px] w-full">
+                        {/* Table Header */}
+                        <div className="grid grid-cols-[25] gap-0 sticky top-0 bg-white">
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Id</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Część Budżetowa</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dział</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Rozdział</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Paragraf</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Źródło Finansowania</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Grupa Wydatków</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy Pełny</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet Zadaniowy</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Programu</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Komórka Organizacyjna</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Plan WI</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dysponent Środków</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Budżet</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nazwa Zadania</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Szczegółowe Uzasadnienie</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Przeznaczenie</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Potrzeby 2026</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Limit 2026</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Brakująca Kwota 2026</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Kwota Umowy</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Nr Umowy</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Dotacja Z Kim</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Podstawa Prawna Dotacji</div>
+                            <div className="bg-gray-100 p-3 border border-gray-200 text-xs font-semibold text-gray-700">Uwagi</div>
+                            <div>
+                                wdknwenfc
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
     )
