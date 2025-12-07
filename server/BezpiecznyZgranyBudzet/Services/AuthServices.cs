@@ -35,6 +35,32 @@ namespace BezpiecznyZgranyBudzet.Services
             return user.SessionId.Value;
         }
 
+        public async Task Addusers()
+        {
+            await using var dbContext = await _factory.CreateDbContextAsync();
+
+            var user1 = new UserData
+            {
+                UserName = "admin",
+                UserLastName = "admin",
+                UserPassword = "admin",
+                Organisation = "admin"
+            };
+
+            var user2 = new UserData
+            {
+                UserName = "user",
+                UserLastName = "user",
+                UserPassword = "user",
+                Organisation = "Decpartment A"
+            };
+
+            dbContext.UserData.Add(user1);
+            dbContext.UserData.Add(user2);
+
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<bool> Logout(Guid session)
         {
             await using var dbContext = await _factory.CreateDbContextAsync();

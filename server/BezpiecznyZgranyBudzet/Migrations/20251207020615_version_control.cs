@@ -14,10 +14,8 @@ namespace BezpiecznyZgranyBudzet.Migrations
             migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "FinanceData",
-                type: "uuid",
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+                oldClrType: typeof(string));
 
             migrationBuilder.AddColumn<DateTimeOffset>(
                 name: "CreatedAt",

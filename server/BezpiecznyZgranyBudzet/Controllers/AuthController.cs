@@ -22,6 +22,12 @@ namespace BezpiecznyZgranyBudzet.Controllers
             public string user_password;
         };
 
+        [HttpPost("adduser")]
+        public async Task AddUsers()
+        {
+            await _authServices.Addusers();
+        }
+
         [HttpPost("login")]
         public async Task<Guid> Login([FromBody] UserLogin user)
         {
