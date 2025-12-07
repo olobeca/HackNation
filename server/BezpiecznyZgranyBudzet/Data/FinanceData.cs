@@ -1,6 +1,6 @@
 public class FinanceData
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string CzescBudzetowa { get; set; }
     public string Dzial { get; set; }
     public string Rozdzial { get; set; }
@@ -27,6 +27,8 @@ public class FinanceData
     public string Uwagi { get; set; }
 
 
+    public int? FirstValidVersion { get; set; }
+    public int? LastValidVersion { get; set; } 
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset? InvalidatedAt { get; set; }

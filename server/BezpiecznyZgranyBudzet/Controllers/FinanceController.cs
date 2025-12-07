@@ -1,4 +1,5 @@
-﻿using BezpiecznyZgranyBudzet.Services;
+﻿using BezpiecznyZgranyBudzet.Data.ViewModel;
+using BezpiecznyZgranyBudzet.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,17 +18,17 @@ namespace BezpiecznyZgranyBudzet.Controllers
         }
 
         [HttpPost("data")]
-        public async Task<IActionResult> UpdateFinanceData([FromBody] FinanceData financeData)
+        public async Task<IActionResult> UpdateFinanceData([FromBody] List<FinanceDataVM> financeData)
         {
-            // call a service method to update the finance data
-            return Ok("Finance data updated successfully.");
+            _financeServices.UpdateFinanceData(financeData);
+            return Ok();
         }
 
         [HttpGet("all-data")]
         public async Task<IActionResult> GetFinanceData()
         {
-            // call a service method to get the finance data
-            return Ok("Finance data retrieved successfully.");
+            var data = _financeServices.GetFinanceData();
+            return Ok(data);
         }
     }
 }

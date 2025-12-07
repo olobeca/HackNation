@@ -1,4 +1,5 @@
 ﻿using BezpiecznyZgranyBudzet.Data;
+using BezpiecznyZgranyBudzet.Data.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace BezpiecznyZgranyBudzet.Services
@@ -12,16 +13,31 @@ namespace BezpiecznyZgranyBudzet.Services
             _factory = factory;
         }
 
-        public async Task UpdateFinanceData(List<FinanceData> financeData)
+        public async Task UpdateFinanceData(List<FinanceDataVM> financeData)
         {
             await using var dbContext = await _factory.CreateDbContextAsync();
 
+            //get all updated ids
             var ids = financeData.Select(m => m.Id).ToList();
-            var toUpdate = await dbContext.FinanceData
-                .Where(x => ids.Contains(x.Id))
-                .ToListAsync();
+            Console.WriteLine($"Updating finance data for {ids.Count} items.");
+            foreach (var id in ids)
+            {
+                //chceck if exists
+                var existingData = await dbContext.FinanceData.FindAsync(id);
+                if (existingData != null) //exists, update
+                {   
+                    var newData = financeData.First(m => m.Id == id);
+                    dbContext.Entry(existingData).CurrentValues.SetValues(newData); //fix to ignore null newData
+                }
+                else //doesn't exist, add
+                {
+                    var newData = financeData.First(m => m.Id == id);
+                    //await dbContext.FinanceData.AddAsync(newData);
+                }
+            }
 
-            return await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
+            return;
 
 
         }
