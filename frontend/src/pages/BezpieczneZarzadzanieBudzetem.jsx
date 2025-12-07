@@ -128,7 +128,10 @@ function BezpieczneZarzadzanieBudzetem() {
                                     </div>
                                     <div className="bg-yellow-50 text-yellow-600 text-xs font-medium px-3 py-1 rounded-full motion-preset-pulse motion-duration-2000 ">Niezapisane zmiany</div>
                                 </div>
-                                <button className="w-full py-4 rounded-xl bg-green-600 hover:bg-green-700 hover:shadow-lg hover:scale-105 text-white text-base shadow-md">Zapisz do Master-Repozytorium</button>
+                                <div className="w-full flex gap-3">
+                                    <button className="w-1/2 py-4 rounded-xl bg-green-600 hover:bg-green-700 hover:shadow-lg hover:scale-105 text-white text-sm shadow-md">Zapisz do Master-Repozytorium</button>
+                                    <button className="w-1/2 py-4 rounded-xl bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white text-sm shadow-md" onClick={() => {SetisChanged(false);SetdataToPush([])}}>Anuluj zmiany</button>
+                                </div>
                                 <div className="mt-4 flex w-full p-4 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-lg text-xs" role="alert">
                                     <p>Pamiętaj, aby zapisać wprowadzone zmiany. Nieprawidłowe dane zostaną automatycznie odrzucone.</p>
                                 </div>
