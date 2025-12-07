@@ -15,10 +15,17 @@ namespace BezpiecznyZgranyBudzet.Controllers
             _authServices = authServices;
         }
 
-        [HttpPost("login")]
-        public async Task<Guid> Login([FromBody] string user_name,[FromBody] string user_lastname,[FromBody] string user_password)
+        public struct UserLogin
         {
-            return await _authServices.Login( user_name, user_lastname, user_password);
+            public string user_name;
+            public string user_lastname;
+            public string user_password;
+        };
+
+        [HttpPost("login")]
+        public async Task<Guid> Login([FromBody] UserLogin user)
+        {
+            return await _authServices.Login( user.user_name, user.user_lastname, user.user_password);
         }
 
         [HttpGet("logout")]

@@ -1,6 +1,6 @@
 public class UserData
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string UserName { get; set; }
     public string UserLastName { get; set; }
     public string UserPassword { get; set; }

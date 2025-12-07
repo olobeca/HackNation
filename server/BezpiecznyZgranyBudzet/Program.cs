@@ -28,7 +28,6 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
@@ -48,5 +47,25 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    // ensure database exists
+    db.Database.Migrate();
+
+    // seed only if empty
+    if (!db.UserData.Any())
+    {
+        db.UserData.AddRange(
+            new UserData { UserName = "admin", UserLastName = "admin" ,UserPassword = "admin", Organisation = "Admin" },
+            new UserData { UserName = "testb", UserLastName = "lastb" ,UserPassword = "testb", Organisation = "Department B" },
+            new UserData { UserName = "testa", UserLastName = "lasta" ,UserPassword = "testa",    Organisation = "Department A" }
+        );
+
+        db.SaveChanges();
+    }
+}
 
 app.Run();
