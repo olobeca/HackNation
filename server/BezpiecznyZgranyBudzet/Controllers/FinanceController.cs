@@ -25,16 +25,16 @@ namespace BezpiecznyZgranyBudzet.Controllers
         }
 
         [HttpPost("data")]
-        public async Task<IActionResult> UpdateFinanceData([FromBody] List<FinanceDataVM> financeData)
+        public async Task<IActionResult> UpdateFinanceData([FromBody] List<FinanceDataVM> financeData, Guid session)
         {
-            await _financeServices.UpdateFinanceData(financeData);
+            await _financeServices.UpdateFinanceData(financeData, session);
             return Ok();
         }
 
         [HttpGet("all-data")]
-        public async Task<IActionResult> GetFinanceData()
+        public async Task<IActionResult> GetFinanceData(Guid session)
         {
-            var data = _financeServices.GetFinanceData();
+            var data = _financeServices.GetFinanceData(session);
             return Ok(data);
         }
 

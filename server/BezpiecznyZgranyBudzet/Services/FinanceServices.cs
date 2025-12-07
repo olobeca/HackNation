@@ -13,26 +13,100 @@ namespace BezpiecznyZgranyBudzet.Services
             _factory = factory;
         }
 
-        public async Task UpdateFinanceData(List<FinanceDataVM> financeData)
+        public async Task UpdateFinanceData(List<FinanceDataVM> financeData, Guid session)
         {
             await using var dbContext = await _factory.CreateDbContextAsync();
+            var user = await dbContext.UserData.FirstOrDefaultAsync(u => u.SessionId == session);
+
+            var prev_version = await dbContext.FinanceData.MaxAsync(f => (int?)f.LastValidVersion) ?? 0;
 
             //get all updated ids
             var ids = financeData.Select(m => m.Id).ToList();
             Console.WriteLine($"Updating finance data for {ids.Count} items.");
             foreach (var id in ids)
             {
+                //add checks for department, version control
                 //chceck if exists
                 var existingData = await dbContext.FinanceData.FindAsync(id);
-                if (existingData != null) //exists, update
+                if (existingData.KomorkaOrganizacyjna != user.Organisation)
+                {
+                    continue; //skip if not user's department
+                }
+                if (existingData != null) //exists, update the changed fields
                 {   
                     var newData = financeData.First(m => m.Id == id);
-                    dbContext.Entry(existingData).CurrentValues.SetValues(newData); //fix to ignore null newData
+                    //dbContext.Entry(existingData).CurrentValues.SetValues(newData); //fix to ignore null newData
+                    var newFinanceData = new FinanceData //implement later with validation
+                    {
+                        Id = Guid.NewGuid(),
+                        KomorkaOrganizacyjna = "",
+                        CzescBudzetowa = "",
+                        Dzial = "",
+                        Rozdzial = "",
+                        Paragraf = "",
+                        ZrodloFinansowania = "",
+                        GrupaWydatkow = "",
+                        BudzetZadaniowyPelny = "",
+                        BudzetZadaniowy = "",
+                        NazwaProgramu = "",
+                        PlanWI = 0,
+                        DysponentSrodkow = "",
+                        Budzet = 0,
+                        NazwaZadania = "",
+                        SzczegoloweUzasadnienie = "",
+                        Przeznaczenie = "",
+                        Potrzeby2026 = 0,
+                        Limit2026 = 0,
+                        BrakujacaKwota2026 = 0,
+                        KwotaUmowy = 0,
+                        NrUmowy = "",
+                        DotacjaZKim = "",
+                        PodstawaPrawnaDotacji = "",
+                        Uwagi = "",
+                        CreatedAt = DateTimeOffset.UtcNow,
+                        UpdatedAt = DateTimeOffset.UtcNow,
+                        IsAccesible = false,
+                        LastValidVersion = prev_version + 1
+                    };
+                    await dbContext.FinanceData.AddAsync(newFinanceData);
                 }
                 else //doesn't exist, add
                 {
                     var newData = financeData.First(m => m.Id == id);
-                    //await dbContext.FinanceData.AddAsync(newData);
+                    var newFinanceData = new FinanceData //implement later with validation
+                    {
+                        Id = Guid.NewGuid(),
+                        KomorkaOrganizacyjna = "",
+                        CzescBudzetowa = "",
+                        Dzial = "",
+                        Rozdzial = "",
+                        Paragraf = "",
+                        ZrodloFinansowania = "",
+                        GrupaWydatkow = "",
+                        BudzetZadaniowyPelny = "",
+                        BudzetZadaniowy = "",
+                        NazwaProgramu = "",
+                        PlanWI = 0,
+                        DysponentSrodkow = "",
+                        Budzet = 0,
+                        NazwaZadania = "",
+                        SzczegoloweUzasadnienie = "",
+                        Przeznaczenie = "",
+                        Potrzeby2026 = 0,
+                        Limit2026 = 0,
+                        BrakujacaKwota2026 = 0,
+                        KwotaUmowy = 0,
+                        NrUmowy = "",
+                        DotacjaZKim = "",
+                        PodstawaPrawnaDotacji = "",
+                        Uwagi = "",
+                        CreatedAt = DateTimeOffset.UtcNow,
+                        UpdatedAt = DateTimeOffset.UtcNow,
+                        IsAccesible = false,
+                        FirstValidVersion = prev_version + 1
+
+                    };
+                    await dbContext.FinanceData.AddAsync(newFinanceData);
                 }
             }
 
@@ -42,10 +116,18 @@ namespace BezpiecznyZgranyBudzet.Services
 
         }
 
-        public async Task<List<FinanceData>> GetFinanceData()
+        public async Task<List<FinanceData>> GetFinanceData(Guid session)
         {
             using var dbContext = await _factory.CreateDbContextAsync();
-            return await dbContext.FinanceData.ToListAsync();
+            var user = await dbContext.UserData.FirstOrDefaultAsync(u => u.SessionId == session);
+            var valid_departments = await dbContext.FinanceData
+                .Where(f => (f.KomorkaOrganizacyjna == user.Organisation) 
+                && f.IsAccesible 
+                && f.LastValidVersion == null)
+                .ToListAsync();//add check if admin
+
+            
+            return valid_departments;
         }
 
         public async Task AddFinanceData(Guid session, string department)
