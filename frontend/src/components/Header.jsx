@@ -9,6 +9,32 @@ function Header() {
 
     const {UserData} = useContext(UserContext);
 
+    async function handleDownloadFiles () {
+        try { 
+            const response = await fetch('http://localhost:5000/api/documents/download', { 
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            if(!response.ok) throw new Error('Błąd pobierania plików');
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'documents.zip';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+        } catch(error) {
+            console.error("Błąd podczas pobierania dokumentów:", error);
+        }
+    }
+
 
     return (
         <header className="sticky top-0 z-50  bg-white border-b border-gray-200 shadow-md p-4">
@@ -27,6 +53,7 @@ function Header() {
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
+                    <button className="rounded-lg bg-green-600 hover:bg-green-700 px-4 py-3 text-white font-semibold" onClick={handleDownloadFiles}>Pobierz dokumenty</button>
                     <div className="bg-blue-50 flex gap-2 p-3 rounded-lg items-center border border-gray-100 shadow-md">
                         <img src={clockBlue} alt="clock" className="w-6 h-6"/>
                         <div className="flex flex-col text-left">
