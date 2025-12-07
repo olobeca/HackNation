@@ -3,6 +3,7 @@ import UserContext from '../context/UserContext';
 import { useContext } from 'react';
 import shieldWhite from '../assets/shieldWhite.svg';
 import clockBlue from '../assets/clockBlue.svg';
+import { Link } from 'react-router-dom';
 
 
 function Header() {
@@ -35,6 +36,12 @@ function Header() {
         }
     }
 
+    function handleLogout() {
+        // oddanie backendowi tokenu 
+        console.log("Użytkownik wylogowany");
+        console.log('Token zwracany do backendu:', UserData.token);
+    }
+
 
     return (
         <header className="sticky top-0 z-50  bg-white border-b border-gray-200 shadow-md p-4">
@@ -61,7 +68,9 @@ function Header() {
                             <h1 className="text-sm text-gray-900">2026-2029</h1>
                         </div>
                     </div>
-                    <button className="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-500">Wyloguj</button>
+                    <Link to="/">
+                        <button onClick={handleLogout} className="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-500">Wyloguj</button>
+                    </Link>
                 </div>
             </div>
         </header>
